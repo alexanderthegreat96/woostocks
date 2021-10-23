@@ -1,0 +1,26 @@
+[12-Oct-2021 19:56:45 Europe/Bucharest] PHP Fatal error:  Uncaught Error: Undefined class constant 'IMPORTER_DB' in /home/mgromita/woostocks.mgromitalia.ro/classes/Admin.php:185
+Stack trace:
+#0 /home/mgromita/woostocks.mgromitalia.ro/admin/index.php(69): LexSystems\Admin->getLogsCount()
+#1 {main}
+  thrown in /home/mgromita/woostocks.mgromitalia.ro/classes/Admin.php on line 185
+[12-Oct-2021 19:56:48 Europe/Bucharest] PHP Fatal error:  Uncaught Error: Undefined class constant 'IMPORTER_DB' in /home/mgromita/woostocks.mgromitalia.ro/classes/Admin.php:185
+Stack trace:
+#0 /home/mgromita/woostocks.mgromitalia.ro/admin/index.php(69): LexSystems\Admin->getLogsCount()
+#1 {main}
+  thrown in /home/mgromita/woostocks.mgromitalia.ro/classes/Admin.php on line 185
+[12-Oct-2021 19:59:43 Europe/Bucharest] PHP Fatal error:  Uncaught Error: Undefined class constant 'MYSQL_DB' in /home/mgromita/woostocks.mgromitalia.ro/classes/Admin.php:185
+Stack trace:
+#0 /home/mgromita/woostocks.mgromitalia.ro/admin/index.php(69): LexSystems\Admin->getLogsCount()
+#1 {main}
+  thrown in /home/mgromita/woostocks.mgromitalia.ro/classes/Admin.php on line 185
+[12-Oct-2021 19:59:44 Europe/Bucharest] PHP Fatal error:  Uncaught Error: Undefined class constant 'MYSQL_DB' in /home/mgromita/woostocks.mgromitalia.ro/classes/Admin.php:185
+Stack trace:
+#0 /home/mgromita/woostocks.mgromitalia.ro/admin/index.php(69): LexSystems\Admin->getLogsCount()
+#1 {main}
+  thrown in /home/mgromita/woostocks.mgromitalia.ro/classes/Admin.php on line 185
+[12-Oct-2021 20:00:33 Europe/Bucharest] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/mgromita/woostocks.mgromitalia.ro/classes/Admin.php on line 187
+[12-Oct-2021 20:00:33 Europe/Bucharest] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/mgromita/woostocks.mgromitalia.ro/classes/Admin.php on line 95
+[12-Oct-2021 22:14:29 Europe/Bucharest] PHP Fatal error:  Cannot redefine class constant LexSystems\Config::ENABLE_LOGGING in /home/mgromita/woostocks.mgromitalia.ro/config/Config.php on line 19
+[12-Oct-2021 22:14:40 Europe/Bucharest] PHP Fatal error:  Cannot redefine class constant LexSystems\Config::ENABLE_LOGGING in /home/mgromita/woostocks.mgromitalia.ro/config/Config.php on line 19
+[12-Oct-2021 22:14:46 Europe/Bucharest] PHP Fatal error:  Cannot redefine class constant LexSystems\Config::ENABLE_LOGGING in /home/mgromita/woostocks.mgromitalia.ro/config/Config.php on line 19
+[12-Oct-2021 22:14:56 Europe/Bucharest] PHP Fatal error:  Cannot redefine class constant LexSystems\Config::ENABLE_LOGGING in /home/mgromita/woostocks.mgromitalia.ro/config/Config.php on line 19

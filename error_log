@@ -1,0 +1,22 @@
+[14-Oct-2021 09:43:22 Europe/Bucharest] PHP Warning:  file_get_contents(https://api.fgo.ro/v1/articol/getlist): failed to open stream: HTTP request failed! HTTP/1.1 409 Conflict
+ in /home/mgromita/woostocks.mgromitalia.ro/classes/FgoWrapper.php on line 87
+[14-Oct-2021 09:48:01 Europe/Bucharest] PHP Fatal error:  Uncaught Error: Call to private method LexSystems\WoocommerceCronWrapper::returnLastProductsPage() from context '' in /home/mgromita/woostocks.mgromitalia.ro/updateWoocommerce.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/mgromita/woostocks.mgromitalia.ro/updateWoocommerce.php on line 11
+[14-Oct-2021 09:48:09 Europe/Bucharest] PHP Fatal error:  Uncaught Error: Call to private method LexSystems\WoocommerceCronWrapper::returnLastProductsPage() from context '' in /home/mgromita/woostocks.mgromitalia.ro/updateWoocommerce.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/mgromita/woostocks.mgromitalia.ro/updateWoocommerce.php on line 11
+[14-Oct-2021 09:59:46 Europe/Bucharest] PHP Fatal error:  Uncaught Error: Call to private method LexSystems\WoocommerceCronWrapper::returnLastProductsPage() from context '' in /home/mgromita/woostocks.mgromitalia.ro/updateWoocommerce.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/mgromita/woostocks.mgromitalia.ro/updateWoocommerce.php on line 11
+[14-Oct-2021 10:16:14 Europe/Bucharest] PHP Fatal error:  Uncaught Error: Call to private method LexSystems\WoocommerceCronWrapper::returnLastProductsPage() from context '' in /home/mgromita/woostocks.mgromitalia.ro/updateWoocommerce.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/mgromita/woostocks.mgromitalia.ro/updateWoocommerce.php on line 11
+[22-Oct-2021 14:07:12 Europe/Bucharest] PHP Warning:  file_get_contents(https://api.fgo.ro/v1/articol/getlist): failed to open stream: HTTP request failed! HTTP/1.1 409 Conflict
+ in /home/mgromita/woostocks.mgromitalia.ro/classes/FgoWrapper.php on line 87
+[22-Oct-2021 14:07:19 Europe/Bucharest] PHP Warning:  file_get_contents(https://api.fgo.ro/v1/articol/getlist): failed to open stream: HTTP request failed! HTTP/1.1 409 Conflict
+ in /home/mgromita/woostocks.mgromitalia.ro/classes/FgoWrapper.php on line 87
