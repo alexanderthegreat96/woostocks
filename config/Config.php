@@ -7,26 +7,34 @@ namespace LexSystems;
 class Config
 {
     /**
-     * Prestashop MySQL Details
+     * Logger Details
      */
     const ENABLE_LOGGING = true;
+
+    /**
+     * Cron details
+     * how many seconds do you want to run
+     * the cron
+     */
+
+    const CRON_LIMIT = 1350;
         
     /**
      * FGO Data
      */
 
-    const PRIVATE_KEY = "625FA84B383080AB7A1B0830BD4044B3";
-    const COD_UNIC = "10363240";
-    const URL_PLATFORM = "https://woostocks.mgromitalia.ro/";
+    const PRIVATE_KEY = "";
+    const COD_UNIC = "";
+    const URL_PLATFORM = "";
 
 
     /**
      * WooCommerce Credentials
      */
 
-    const WC_CK = 'ck_55f3318d366338ee9ddcb55f9522c613f6d76276';
-    const WC_CS = 'cs_2186da9755b4e15151ada7a32cbcae7032d67ade';
-    const WC_URL = 'https://test.mgromitalia.ro/';
+    const WC_CK = '';
+    const WC_CS = '';
+    const WC_URL = '';
 
     /**
      * Login Inferface

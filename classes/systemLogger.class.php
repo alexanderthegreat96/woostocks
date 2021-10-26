@@ -80,8 +80,31 @@ class SystemLogger
         return $this->db->findAll(['date' => 'desc'],$limit);
     }
 
+    /**
+     * @return int
+     * @throws \SleekDB\Exceptions\IOException
+     */
     public function getLogCount()
     {
         return $this->db->count();
+    }
+
+    /**
+     * Delete all log entries
+     */
+    public function deleteLogEntries()
+    {
+        $files = glob(__DIR__.'/../databases/cron-logs/data/*');
+        foreach($files as $file) {
+            if(is_file($file))
+                if(unlink($file))
+                {
+                    return true;
+                }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
 <?php
 require "class.loader.php";
-$cronWrapper = new \LexSystems\CronWrapper();
-$update = $cronWrapper->emptyLogs();
+$logger = new \LexSystems\SystemLogger();
+$logger->deleteLogEntries();
