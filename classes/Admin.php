@@ -1,7 +1,7 @@
 <?php
 namespace LexSystems;
 
-class Admin extends Database
+class Admin
 {
     /**
      * @param $url
@@ -89,102 +89,20 @@ class Admin extends Database
 
     public function getLogs(string $limit = "10")
     {
-        $con = $this->connect(Config::IMPORTER_DB);
-
-        $run = mysqli_query($con, "SELECT * FROM global_logs ORDER BY date DESC LIMIT $limit");
-        if(mysqli_num_rows($run))
-        {
-            while($a = mysqli_fetch_assoc($run))
-            {
-                $data[] = $a;
-            }
-
-            return $data;
-        }
-        else
-        {
-            return null;
-        }
+       $logs = new SystemLogger();
+       return $logs->getLogEntries($limit);
     }
 
-    /**
-     * @param string $limit
-     * @return array|null
-     */
-    public function getProducts(string $limit = "10")
-    {
-        $con = $this->connect(Config::IMPORTER_DB);
-
-        $run = mysqli_query($con, "SELECT * FROM prestashop_products ORDER BY `updatedAt`  DESC LIMIT $limit");
-        if(mysqli_num_rows($run))
-        {
-            while($a = mysqli_fetch_assoc($run))
-            {
-                $data[] = $a;
-            }
-
-            return $data;
-        }
-        else
-        {
-            return null;
-        }
-    }
-
-    /**
-     * @param string $limit
-     * @return array|null
-     */
-    public function getProductVariations(string $limit = "10")
-    {
-        $con = $this->connect(Config::IMPORTER_DB);
-
-        $run = mysqli_query($con, "SELECT * FROM prestashop_product_variations ORDER BY `updatedAt`  DESC LIMIT $limit");
-        if(mysqli_num_rows($run))
-        {
-            while($a = mysqli_fetch_assoc($run))
-            {
-                $data[] = $a;
-            }
-
-            return $data;
-        }
-        else
-        {
-            return null;
-        }
-    }
 
     /**
      * @return mixed|string
      */
-    public function getProductsCount()
-    {
-        $con = $this->connect(Config::IMPORTER_DB);
-        $run = mysqli_query($con, "SELECT count(id) as count FROM prestashop_products");
-        $a = mysqli_fetch_assoc($run);
-        return $a['count'];
-    }
-
-    /**
-     * @return mixed|string
-     */
-    public function getVariationsCount()
-    {
-        $con = $this->connect(Config::IMPORTER_DB);
-        $run = mysqli_query($con, "SELECT count(id) as count FROM prestashop_product_variations");
-        $a = mysqli_fetch_assoc($run);
-        return $a['count'];
-    }
-
     /**
      * @return mixed|string
      */
     public function getLogsCount()
     {
-        $con = $this->connect(Config::IMPORTER_DB);
-        $run = mysqli_query($con, "SELECT count(id) as count FROM global_logs");
-        $a = mysqli_fetch_assoc($run);
-        return $a['count'];
+        $logs = new SystemLogger();
+        return $logs->getLogCount();
     }
 }

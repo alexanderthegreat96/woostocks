@@ -1,8 +1,12 @@
 <?php
 
 namespace LexSystems;
+use SleekDB\Exceptions\InvalidArgumentException;
+use SleekDB\Exceptions\InvalidConfigurationException;
+use SleekDB\Store;
+use SleekDB\Query;
 
-class SystemLogger extends Database
+class SystemLogger
 {
 
     /**
@@ -12,59 +16,72 @@ class SystemLogger extends Database
      * @return array
      */
 
-    public static function saveLog(string $type, string $message)
+    public function __construct()
     {
-        if(Config::ENABLE_LOGGING)
-        {
-            $location = Config::LOGS_DIR;
-            $filename = time()."_log.txt";
-            $logFile = fopen($location.'/'.$filename, "w");
-            if($logFile)
-            {
-                $message = '['.$type.']'.' - '.$msg.' - ' .date("Y-m-D H:i:s");
-                fwrite($logFile,$message);
-                fclose($logFile);
-                return ['status' => true,'log_file' => $location.'/'.$filename];
-            }
-            else
-            {
-                return ['status' => false,'error' => 'Cannot create the log file. Check permissions and make sure '.$location.' is writable. (777 perms)'];
-            }
-        }
-        else
-        {
-            return ['status' => false,'Logging not enabled.Check settings.'];
-        }
-
+        $config = [
+            "auto_cache" => true,
+            "cache_lifetime" => null,
+            "timeout" => false,
+            "primary_key" => "_id",
+            "search" => [
+                "min_length" => 2,
+                "mode" => "or",
+                "score_key" => "scoreKey",
+                "algorithm" => Query::SEARCH_ALGORITHM["hits"]
+            ]
+        ];
+        $this->db =  new \SleekDB\Store("cron-logs", __DIR__.'/../databases/',$config);
     }
+
+
 
     /**
      * @param string $type
      * @param string $message
      * @return array|bool[]
+     * @throws \SleekDB\Exceptions\IOException
+     * @throws \SleekDB\Exceptions\IdNotAllowedException
+     * @throws \SleekDB\Exceptions\InvalidArgumentException
+     * @throws \SleekDB\Exceptions\JsonException
      */
+
     public function logDb(string $type, string $message)
     {
-        if(Config::ENABLE_LOGGING)
-        {
-            $con = $this->connect(Config::IMPORTER_DB);
-
-            $insert = mysqli_query($con, "INSERT into global_logs VALUES (DEFAULT,'[".addslashes($type)."]','".addslashes($message)."','".date("Y-m-d H:i:s")."')");
-
-            if($insert)
+        if(Config::ENABLE_LOGGING) {
+            try
             {
+                $this->db->insert([
+                    'type' => '[' . $type . ']',
+                    'message' => $message,
+                    'date' => date('Y-m-d H:i:s')
+                ]);
                 return ['status' => true];
-            }
-            else
-            {
-                return ['status' => false,'error' => mysqli_error($con)];
-            }
+
+           }
+           catch (InvalidArgumentException $e)
+           {
+               return ['status' => false, 'error' =>$e->getMessage()];
+           }
         }
         else
         {
             return ['status' => false,'error' => 'Loggin not enabled. Check settings.'];
         }
+    }
 
+    /**
+     * @return array
+     * @throws InvalidArgumentException
+     * @throws \SleekDB\Exceptions\IOException
+     */
 
+    public function getLogEntries(int $limit = 10)
+    {
+        return $this->db->findAll(['date' => 'desc'],$limit);
+    }
+
+    public function getLogCount()
+    {
+        return $this->db->count();
     }
 }
