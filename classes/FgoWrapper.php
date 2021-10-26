@@ -59,6 +59,40 @@ class FgoWrapper extends Config
         }
     }
 
+    public function getArticlesRequest(array $productCodes)
+    {
+        $data = [];
+        $data['CodUnic'] = $this->cui;
+        $data['Hash'] = $this->getHash();
+        $data['PlatformaUrl'] = $this->urlPlatform;
+//        $data['Coduri'] = array_slice($productCodes,0,29);
+        $data['Coduri'] = $productCodes;
+        $options = array(
+            'http' => array(
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'POST',
+                'content' => http_build_query($data)
+            )
+        );
+        $context  = stream_context_create($options);
+        $result = file_get_contents('https://api.fgo.ro/v1/articol/getlist', false, $context);
+        if($result)
+        {
+            $response = json_decode($result,true);
+            if($response['Success'])
+            {
+                return ['status' => true,'data' => $response['Result']];
+            }
+            else
+            {
+                return ['status' => false,'error' => $response['Message']];
+            }
+        }
+        else
+        {
+            return ['status' => false,'error' => 'Could not resolve endpoint!'];
+        }
+    }
     /**
      * @param array $productCodes
      * @return array
@@ -66,45 +100,32 @@ class FgoWrapper extends Config
 
     public function getArticles(array $productCodes)
     {
-
-        if(is_array($productCodes) && count($productCodes) <= 30)
+        if(is_array($productCodes))
         {
-
-            $data = [];
-            $data['CodUnic'] = $this->cui;
-            $data['Hash'] = $this->getHash();
-            $data['PlatformaUrl'] = $this->urlPlatform;
-            $data['Coduri'] = array_slice($productCodes,0,30);
-
-            $options = array(
-                'http' => array(
-                    'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-                    'method'  => 'POST',
-                    'content' => http_build_query($data)
-                )
-            );
-            $context  = stream_context_create($options);
-            $result = file_get_contents('https://api.fgo.ro/v1/articol/getlist', false, $context);
-
-
-            if($result)
+            $limit = 30;
+            $total = count($productCodes);
+            if($total <= $limit)
             {
-                $response = json_decode($result,true);
-                if($response['Success'])
-                {
-                    return ['status' => true,'data' => $response['Result']];
-                }
-                else
-                {
-                    return ['status' => false,'error' => $response['Message']];
-                }
+                return $this->getArticlesRequest($productCodes);
             }
             else
             {
-                return ['status' => false,'error' => 'Could not resolve endpoint!'];
+                $data = ['data' => null,'status' => true];
+                $pages = ($total % $limit == 0) ? ($total / $limit) : (round($total / $limit, 0) + 1);
+                for($i = 1; $i<=$pages;$i++)
+                {
+                    $offset = ($i > 1) ? ($limit * ($i - 1)) : 0;
+                    $parts = array_slice($productCodes,$offset,$offset+$limit);
+
+                    $get = $this->getArticlesRequest($parts);
+                    if($get)
+                    {
+                        array_push($data['data'],$get['data']);
+                    }
+                }
+
+                return $data;
             }
-
-
         }
         else
         {

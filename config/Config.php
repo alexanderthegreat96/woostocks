@@ -9,8 +9,8 @@ class Config
     /**
      * Prestashop MySQL Details
      */
- const ENABLE_LOGGING = true;
-      const MYSQL_HOST = "localhost";
+    const ENABLE_LOGGING = true;
+    const MYSQL_HOST = "localhost";
     const MYSQL_USER = "mgromita_presta";
     const MYSQL_PASS = "Amarian123";
 

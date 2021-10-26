@@ -35,10 +35,10 @@ class WoocommerceWrapper
      */
 
 
-    public function getProducts(int $page = 1, string $keyword = '', array $productIds = [] ,string $sku = '', int $perPage = 30)
+    public function getProducts(int $page = 1,string $type = 'simple', string $keyword = '', array $productIds = [] ,string $sku = '', int $perPage = 30)
     {
         try{
-            $results = $this->wc->get('products',['page' => $page, 'per_page' => $perPage,'search' => $keyword,'sku' => $sku ,'include' => $productIds]);
+            $results = $this->wc->get('products',['page' => $page,'per_page' => $perPage,'type'=> $type,'search' => $keyword,'sku' => $sku ,'include' => $productIds]);
 
             if(isset($this->wc->http->getResponse()->getHeaders()['x-wp-totalpages']))
             {
@@ -50,6 +50,35 @@ class WoocommerceWrapper
             }
 
             return ['status' => true,'results' => $results,'total_pages' => $total_pages,'current_page' => $page];
+        }
+        catch(HttpClientException $e)
+        {
+            return ['status' => false,'error' => $e->getMessage()];
+        }
+
+    }
+
+    /**
+     * @param int $wc_id
+     * @param int $perPage
+     * @return array
+     */
+
+    public function getProductVariations(int $wc_id,int $perPage = 30)
+    {
+        try{
+            $results = $this->wc->get('products/'.$wc_id.'/variations',['page' => 1, 'per_page' => $perPage]);
+
+            if(isset($this->wc->http->getResponse()->getHeaders()['x-wp-totalpages']))
+            {
+                $total_pages = $this->wc->http->getResponse()->getHeaders()['x-wp-totalpages'];
+            }
+            else
+            {
+                $total_pages = null;
+            }
+
+            return ['status' => true,'results' => $results,'total_pages' => $total_pages,'current_page' => 1];
         }
         catch(HttpClientException $e)
         {
@@ -100,6 +129,28 @@ class WoocommerceWrapper
 
     }
 
+    /**
+     * @param int $wc_id
+     * @param int $variationId
+     * @param string $stock
+     * @return array|bool[]
+     */
+
+    public function updateWcProductVariation(int $wc_id,int $variationId, string $stock = '0')
+    {
+        try{
+            $this->wc->put('products/'.$wc_id.'/variations/'.$variationId,['stock_quantity' => $stock]);
+            $result = ['status' => true];
+        }
+        catch(HttpClientException $e)
+        {
+            $result =  ['status' => false,'error' => $e->getMessage()];
+        }
+
+        return $result;
+
+    }
+
     public function updateStockWithinArray(string $stock, string $sku, array &$array)
     {
         if($array)
@@ -114,5 +165,25 @@ class WoocommerceWrapper
             return $array;
         }
 
+    }
+
+    /**
+     * @param array $array
+     * @return array
+     */
+
+    public function cleanNonSkuArray(array $array)
+    {
+       if($array && count($array) > 0)
+       {
+           foreach($array as $key=>$val)
+           {
+               if(isset($array[$key]->sku) && $array[$key]->sku == '')
+               {
+                   unset($array[$key]);
+               }
+           }
+           return $array;
+       }
     }
 }

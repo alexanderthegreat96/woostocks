@@ -18,3 +18,4 @@ require "classes/Admin.php";
 require "libs/Woocommerce/vendor/autoload.php";
 require 'classes/WoocommerceWrapper.php';
 require 'classes/WoocommerceCronWrapper.php';
+require 'classes/WoocommerceCronWrapperUpdate.php';
