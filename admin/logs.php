@@ -15,7 +15,7 @@ $admin = new \LexSystems\Admin();
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>PrestaStocks BETA - Log-uri</title>
+    <title>WooStocks BETA - Log-uri</title>
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -34,7 +34,7 @@ $admin = new \LexSystems\Admin();
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light border border-dark">
-    <a class="navbar-brand" href="#"><i class="fas fa-database"></i> PrestaStocks BETA</a>
+    <a class="navbar-brand" href="#"><i class="fas fa-database"></i> WooStocks BETA</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
